@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: product
+  profiles:
+    active: dev
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://47.104.107.140:3306/wxdc?characterEncoding=utf-8&useSSL=false
+#    username: root
+#    password: 123456
+#server:
+#  port: 10001
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/
+#mybatis:
+#  config-location: classpath:mapper/*.xml
+##  instance:
+##    hostname: product
