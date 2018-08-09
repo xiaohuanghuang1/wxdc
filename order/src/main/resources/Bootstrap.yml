@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: order
+  profiles:
+    active: dev
+    ##配置配置中心
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql:xxxxxxx?characterEncoding=utf-8&useSSL=false
+    username: xxxxxx
+    password: xxxxxx
+
+##eureka要配置到Bootstrap中，应为要通过注册中心找到config服务
+eureka:
+  instance:
+    hostname: order
+  client:
+    service-url:
+      defaultZone: http://localhost:8762/eureka/

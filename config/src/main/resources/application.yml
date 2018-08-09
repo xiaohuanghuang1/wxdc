@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: config
+  profiles:
+    active: dev
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/xiaohuanghuang1/wxdc-config.git
+          username: xxxxxxx
+          password: xxxxxxx
+          ##配置文件存放目录
+          basedir: I:\project\imooc-practice\config
+  ##配置队列
+  rabbitmq:
+    host: 192.168.118.130
+    port: 5672
+    username: guest
+    password: guest
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8762/eureka/
+
+      ##将接口在控制台显示
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

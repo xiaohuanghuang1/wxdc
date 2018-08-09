@@ -1,19 +1,16 @@
-package com.cjl.wxdc.order;
+package com.cjl.wxdc.config;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.config.server.EnableConfigServer;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@MapperScan("com.cjl.wxdc.order.mapper")
-@EnableFeignClients
-
-public class OrderApplication {
+@EnableConfigServer
+public class ConfigApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OrderApplication.class, args);
+		SpringApplication.run(ConfigApplication.class, args);
 	}
 }
