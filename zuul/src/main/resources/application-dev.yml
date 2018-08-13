@@ -1,0 +1,23 @@
+#server:
+#  port: 10000zuul:zuul:
+#zuul:
+#  host:
+#    socket-timeout-millis: 10000
+#    connection-request-timeout-millis: -1
+#hystrix:
+#  metrics:
+#    enabled: false
+#ribbon:
+#  ReadTimeout: 10000
+#  SocketTimeout: 10000
+#zuul:
+#    host:
+#        connect-timeout-millis: 10000
+#        socket-timeout-millis: 60000
+#hystrix:
+#    command:
+#        default:
+#            execution:
+#                isolation:
+#                    thread:
+#                        timeoutInMilliseconds: 60000

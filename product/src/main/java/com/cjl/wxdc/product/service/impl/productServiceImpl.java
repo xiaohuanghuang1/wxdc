@@ -4,17 +4,20 @@ import com.cjl.wxdc.base.CartDTO;
 import com.cjl.wxdc.base.constant.ErrorCode;
 import com.cjl.wxdc.base.constant.ProductEnum;
 import com.cjl.wxdc.base.exception.ProductException;
+import com.cjl.wxdc.base.vo.StockVO;
 import com.cjl.wxdc.product.dao.ProductInfoMapper;
 import com.cjl.wxdc.base.entity.ProductInfo;
 import com.cjl.wxdc.base.entity.ProductInfoExample;
 import com.cjl.wxdc.product.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,6 +28,9 @@ public class productServiceImpl implements ProductService
 
     @Autowired
     private ProductInfoMapper productInfoMapper;
+
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
     @Override
     public List<ProductInfo> findUpAll()
@@ -59,6 +65,7 @@ public class productServiceImpl implements ProductService
             logger.error("cartDTOs 不能为空:{}",cartDTOs);
             throw new ProductException(ErrorCode.ERRORCODE.PARAM_ERROR);
         }
+        List<StockVO> stocks = new ArrayList<>();
         for (CartDTO cartDTO : cartDTOs)
         {
             ProductInfo productInfo = productInfoMapper.selectByPrimaryKey(cartDTO.getProductId());
@@ -76,6 +83,11 @@ public class productServiceImpl implements ProductService
             }
             productInfo.setProductStock(resultNum);
             productInfoMapper.updateByPrimaryKey(productInfo);
+            StockVO stockVO = new StockVO();
+            stockVO.setProductId(productInfo.getProductId());
+            stockVO.setProductQuantity(productInfo.getProductStock());
+            stocks.add(stockVO);
         }
+        amqpTemplate.convertAndSend("stock",stocks);
     }
 }

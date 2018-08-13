@@ -10,7 +10,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @MapperScan("com.cjl.wxdc.order.mapper")
 @EnableFeignClients
-
 public class OrderApplication {
 
 	public static void main(String[] args) {
